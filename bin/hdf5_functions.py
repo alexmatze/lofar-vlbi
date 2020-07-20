@@ -2897,7 +2897,7 @@ if __name__ == '__main__':
 
     parser.add_argument('-d',
                         '--directions_file',
-                        type=string,
+                        type=str,
                         default="./sources.csv",
                         help='source positions file')
 
