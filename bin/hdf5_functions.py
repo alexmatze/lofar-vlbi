@@ -2713,7 +2713,7 @@ def main(calibrators_ms, delaycal_ms='../L*_SB001_*_*_1*MHz.msdpppconcat',
     # for each calibrator source group the, phase, diagonal, and tec solutions
     # in one h5parm, and evaluate the goodness of the phase solutions
     for i, (ms, source) in enumerate(zip(ms_list, sources)):
-        phase_h5 = glob.glob(ms.replace(suffix, '.ms_tec.h5'))[0]
+        phase_h5 = glob.glob(ms.replace(suffix, '_sols.h5'))[0]
         amplitude_h5 = glob.glob(ms.replace(suffix, '.apply_tec_A_*_c0.h5'))[0]
         tec_h5 = ms.replace(suffix, '.MS_tec.h5')
 
