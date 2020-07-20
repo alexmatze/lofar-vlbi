@@ -2594,7 +2594,7 @@ def add_history_to_h5parm(h5_file, working_file=''):
 def main(calibrators_ms, delaycal_ms='../L*_SB001_*_*_1*MHz.msdpppconcat',
          mtf='mtf.txt', threshold=0.25, cores=4, time_step=4, freq_step=4,
          loop3_script='./loop3B_v1.py', phase_up="{ST001:'CS*'}",
-         filter_cmd="'!CS*&*'", suffix='.apply_tec', column_in='DATA',
+         filter_cmd="'!CS*&*'", suffix='.apply_tec.selfcal', column_in='DATA',
          directions_file='loop2_directions.csv'):
     """Run loop 2 of the LOFAR long-baseline pipeline, creating h5parms with
     solutions for any given directions.
@@ -2707,13 +2707,13 @@ def main(calibrators_ms, delaycal_ms='../L*_SB001_*_*_1*MHz.msdpppconcat',
     sources = []
     for ms in ms_list:
         if ms.split('/')[-1][:5] != 'loop3':
-            sources.append(ms.split('/')[-1][:-19])
+            sources.append(ms.split('/')[-1][:-32])
     logging.info('Found', len(ms_list), 'sources:', ', '.join(sources))
 
     # for each calibrator source group the, phase, diagonal, and tec solutions
     # in one h5parm, and evaluate the goodness of the phase solutions
     for i, (ms, source) in enumerate(zip(ms_list, sources)):
-        phase_h5 = glob.glob(ms.replace(suffix, '.apply_tec_0*_c0.h5'))[0]
+        phase_h5 = glob.glob(ms.replace(suffix, '.ms_tec.h5'))[0]
         amplitude_h5 = glob.glob(ms.replace(suffix, '.apply_tec_A_*_c0.h5'))[0]
         tec_h5 = ms.replace(suffix, '.MS_tec.h5')
 
