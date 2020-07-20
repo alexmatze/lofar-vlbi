@@ -1,8 +1,10 @@
 Welcome to the LOFAR long baseline pipeline!
 
+Test
+
 This pipeline is designed to be fully compatible with prefactor V3.0.  It uses and produces solutions in h5parm format.
 
-Before running this pipeline, you should have already prefactor on your calibrator and target. The prefactor repository, along with the relevant parsets, can be found here: https://github.com/lofar-astron/prefactor . Please be advised that you should only use 3C 147 or 3C 48 as your standard flux calibrators. If this is not the case, you can copy bandpass solutions from a reference 3C 48 observation (but this is still experimental, and not yet built into this pipeline). 
+Before running this pipeline, you should have already prefactor on your calibrator and target. The prefactor repository, along with the relevant parsets, can be found here: https://github.com/lofar-astron/prefactor . Please be advised that you should only use 3C 147 or 3C 48 as your standard flux calibrators. If this is not the case, you can copy bandpass solutions from a reference 3C 48 observation (but this is still experimental, and not yet built into this pipeline).
 
 **Software requirements**
 * Prefactor: https://www.astron.nl/citt/prefactor/
@@ -24,7 +26,7 @@ Replace
 
 with  
 
-> ! process_baselines_cal = * 
+> ! process_baselines_cal = *
 
 2. Run Pre-Facet-Target.parset with the default settings.
 
@@ -34,11 +36,11 @@ For both of these steps, you will have to modify things like the path to your da
 
 *This is an **optional** step which is only relevant if you wish to progress to wide-field imaging afterwards, and is not necessary to run the pipeline.*
 
-1. Run the ddf-pipeline (following instructions on their github repository) with the LOFAR Surveys default settings. This will operate on the output of Pre-Facet-Target and only provides additional phase solutions for the core and remote stations. 
+1. Run the ddf-pipeline (following instructions on their github repository) with the LOFAR Surveys default settings. This will operate on the output of Pre-Facet-Target and only provides additional phase solutions for the core and remote stations.
 
 **INSTRUCTIONS FOR THE LONG BASELINE PIPELINE**
 
-___Notes:___ The pipeline solves for TEC, which is a frequency dependent effect. You need to process an absolute minimum of 10 MHz of bandwidth (30 subbands is safe) for the pipeline to run. 
+___Notes:___ The pipeline solves for TEC, which is a frequency dependent effect. You need to process an absolute minimum of 10 MHz of bandwidth (30 subbands is safe) for the pipeline to run.
 
 Before you run anything, please make sure you are using the ___new___ branch of the long_baseline_pipeline. The configuration file example (pipeline.cfg) is set up for use on CEP3, and will need to be adjusted to your own computing resources. In particular, the _recipe_directories_ line will have to be updated to point to where you have prefactor and the long_baseline_pipeline cloned on your system.
 
@@ -51,7 +53,7 @@ _optional_: If you have run the ddf-pipeline, please update the DDF options sect
 
 After this step, the data will have all the prefactor solutions applied, in the DATA column. If you have applied ddf-pipeline solutions, they will be in the CORRECTED_DATA column. If you optionally choose to run the delay calibration and apply steps (not necessary for the next step) then you will also have new measurement sets with those corrections applied.
 
-2. Run LB-Split-Calibrators.parset 
+2. Run LB-Split-Calibrators.parset
 
 Please update the necessary parameters in the "Please update these parameters" section of the parset. Comments in the parset describe what these parameters are.   
 _optional_: If you have run the ddf-pipeline, please update the DDF options section as well.
@@ -59,4 +61,3 @@ _optional_: If you have run the ddf-pipeline, please update the DDF options sect
 *If you have used a non-standard catalogue, please either name it the same as in the "These parameters may need to be updated" section of the parset, or change the name of the delay_cat there.*
 
 After this step, you will have a number of smaller measurement sets with phased-up core stations combined into ST001, for all the directions of LBCS calibrators.  These will be accompanied by the TEC solutions in each direction, and loop3 will have been run on new measurement sets where TEC has been applied.
-
