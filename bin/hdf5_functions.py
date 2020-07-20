@@ -2876,21 +2876,21 @@ if __name__ == '__main__':
 
     parser.add_argument('-m',
                         '--mtf',
-                        required=False,
+                        #required=False,
                         type=str,
                         default='/data020/scratch/sean/letsgetloopy/mtf.txt',
                         help='master text file')
 
     parser.add_argument('-t',
                         '--threshold',
-                        required=False,
+                        #required=False,
                         type=float,
                         default=0.25,
                         help='threshold for the xx-yy statistic goodness')
 
     parser.add_argument('-n',
                         '--cores',
-                        required=False,
+                        #required=False,
                         type=int,
                         default=4,
                         help='number of cores to use')
