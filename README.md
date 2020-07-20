@@ -1,6 +1,5 @@
 Welcome to the LOFAR long baseline pipeline!
 
-second test
 
 This pipeline is designed to be fully compatible with prefactor V3.0.  It uses and produces solutions in h5parm format.
 
