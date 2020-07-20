@@ -2896,18 +2896,17 @@ if __name__ == '__main__':
                         help='number of cores to use')
 
     parser.add_argument('-d',
-                        '--directions',
-                        type=float,
-                        default=[],
-                        nargs='+',
-                        help='source positions (radians; RA Dec RA Dec...)')
+                        '--directions_file',
+                        type=string,
+                        default="./sources.csv",
+                        help='source positions file')
 
     args = parser.parse_args()
     ms = args.ms
     mtf = args.mtf
     threshold = args.threshold
     cores = args.cores
-    directions = args.directions
+    directions_file = args.directions_file
 
     main(ms, delaycal_ms=ms, mtf=mtf, threshold=threshold, cores=cores,
-         directions=directions)
+         directions_file=directions_file)
