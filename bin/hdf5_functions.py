@@ -23,7 +23,7 @@ import losoto.h5parm as lh5  # on CEP3, "module load losoto"
 import pyrap.tables as pt
 import logging
 
-__author__ = 'Sean Mooney'
+__author__ = 'Sean and Alex'
 
 # short term ------------------------------------------------------------------
 # TODO fix the big error on line 1480 and remove debugging print statements
