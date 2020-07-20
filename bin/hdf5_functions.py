@@ -2867,7 +2867,7 @@ if __name__ == '__main__':
                                      formatter_class=formatter_class)
 
     parser.add_argument('ms',
-                        required=False,
+                        #required=False,
                         type=str,
                         default=('/data020/scratch/sean/letsgetloopy/SILTJ13' +
                                  '5044.06+544752.7_L693725_phasecal.' +
