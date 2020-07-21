@@ -75,11 +75,11 @@
 ## Steps to run.					##
 ##########################################################
 
-pipeline.steps = [ setup, selfcal, loop2steps ]
+pipeline.steps = [ loop2steps ]  #s etup, selfcal,
  
 pipeline.steps.setup = [ mk_results_dir, targetdata_map, targetdata_map_list, parallel_split, caldata_map, correct_beam, cal_model, h5parm_map, sourcedb_map ]
 pipeline.steps.selfcal = [ tecsolve, plot_tec, apply_tec, selfcal ]
-pipeline.steps.loop2steps = [loop2]
+pipeline.steps.loop2steps = [ loop2 ]
 
 ###########################################################################
 

@@ -2867,7 +2867,6 @@ if __name__ == '__main__':
                                      formatter_class=formatter_class)
 
     parser.add_argument('ms',
-                        #required=False,
                         type=str,
                         default=('/data020/scratch/sean/letsgetloopy/SILTJ13' +
                                  '5044.06+544752.7_L693725_phasecal.' +
@@ -2876,21 +2875,18 @@ if __name__ == '__main__':
 
     parser.add_argument('-m',
                         '--mtf',
-                        #required=False,
                         type=str,
                         default='/data020/scratch/sean/letsgetloopy/mtf.txt',
                         help='master text file')
 
     parser.add_argument('-t',
                         '--threshold',
-                        #required=False,
                         type=float,
                         default=0.25,
                         help='threshold for the xx-yy statistic goodness')
 
     parser.add_argument('-n',
                         '--cores',
-                        #required=False,
                         type=int,
                         default=4,
                         help='number of cores to use')
@@ -2898,7 +2894,7 @@ if __name__ == '__main__':
     parser.add_argument('-d',
                         '--directions_file',
                         type=str,
-                        default="./sources.csv",
+                        default="loop2_directions.csv",
                         help='source positions file')
 
     args = parser.parse_args()
