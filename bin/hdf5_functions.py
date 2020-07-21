@@ -2593,7 +2593,7 @@ def add_history_to_h5parm(h5_file, working_file=''):
 
 def main(calibrators_ms, delaycal_ms='../L*_SB001_*_*_1*MHz.msdpppconcat',
          mtf='mtf.txt', threshold=0.25, cores=4, time_step=4, freq_step=4,
-         loop3_script='./loop3B_v1.py', phase_up="{ST001:'CS*'}",
+         loop3_script='../lofar-vlbi/bin/loop3B_v1.py', phase_up="{ST001:'CS*'}",
          filter_cmd="'!CS*&*'", suffix='.apply_tec.selfcal', column_in='DATA',
          directions_file='loop2_directions.csv'):
     """Run loop 2 of the LOFAR long-baseline pipeline, creating h5parms with
