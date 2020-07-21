@@ -38,6 +38,7 @@
 
 ## catalogue information -- update if you want to use your own instead of the auto-generated one
 ! image_cat  = {{ delaycal_directory }}/results/image_catalogue.csv
+! directions_cat = {{ delaycal_directory }}/loop2_directions.csv
 ## format h5parm for setting time axis
 ! cal_solutions = {{ delaycal_directory }}/solutions.h5
 
@@ -74,10 +75,11 @@
 ## Steps to run.					##
 ##########################################################
 
-pipeline.steps = [ setup, selfcal ]
+pipeline.steps = [ setup, selfcal, loop2steps ]
  
 pipeline.steps.setup = [ mk_results_dir, targetdata_map, targetdata_map_list, parallel_split, caldata_map, correct_beam, cal_model, h5parm_map, sourcedb_map ]
 pipeline.steps.selfcal = [ tecsolve, plot_tec, apply_tec, selfcal ]
+pipeline.steps.loop2steps = [loop2]
 
 ###########################################################################
 
@@ -226,6 +228,22 @@ selfcal.argument.startmod               = True
 selfcal.argument.verbose                = False
 selfcal.argument.catalogue		= {{ image_cat }}
 
+# run loop 2
+loop2.control.type             = pythonplugin
+loop2.control.max_per_node     = {{ num_proc_per_node }}
+loop2.control.executable       = {{ scripts }}/hdf5_functions.py
+loop2.argument.flags           = [targetdata_map_list.output.mapfile]
+loop2.argument.delaycal_ms     = {{ delaycal_directory }}/L*.msdpppconcat
+loop2.argument.mtf             = {{ job_directory }}/mtf.txt
+loop2.argument.threshold       = 0.25
+loop2.argument.time_step       = {{ cal_shift_avg_timestep }}
+loop2.argument.freq_step       = {{ cal_shift_avg_freqstep }}
+loop2.argument.cores           = {{ num_proc_per_node }}
+loop2.argument.phase_up        = {{ phaseup_command }}
+loop2.argument.filter_cmd      = {{ filter_command }}
+loop2.argument.column_in       = {{ data_col }}
+loop2.argument.loop3_script    = {{ scripts }}/selfcal_difmap.py
+loop2.argument.directions_file = {{ directions_cat }}
 
 ##################################################################
 #                                                               ##
