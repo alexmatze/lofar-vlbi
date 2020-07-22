@@ -294,7 +294,7 @@ def combine_h5s(phase_h5='', amplitude_h5='', tec_h5='', loop3_dir=''):
     antenna_table = n_solset.obj._f_get_child('antenna')
     antenna_table.append(p_antenna)
 
-    n_solset.makeSoltab('phase000',
+    n_solset.makeSoltab('phase',
                               axesNames=desired_axesNames,
                               axesVals=[p_soltab.time, p_soltab.freq,
                                         p_soltab.ant, p_soltab.pol],
