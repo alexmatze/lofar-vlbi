@@ -492,7 +492,7 @@ def evaluate_solutions(h5parm, mtf, threshold=0.25, verbose=False):
     h = lh5.h5parm(h5parm)
     solname = h.getSolsetNames()[0]  # set to -1 to use only the last solset
     solset = h.getSolset(solname)
-    soltab = solset.getSoltab('phase')
+    soltab = solset.getSoltab('phase000')
     stations = soltab.ant
     source = solset.getSou()  # dictionary
     direction = np.degrees(np.array(source[list(source.keys())[0]]))  # degrees
