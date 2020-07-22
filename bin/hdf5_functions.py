@@ -248,8 +248,9 @@ def combine_h5s(phase_h5='', amplitude_h5='', tec_h5='', loop3_dir=''):
     a_antenna = a.getSolset('sol000').getAnt().items()
 
     t = lh5.h5parm(tec_h5)
-    t_soltab_tec = a.getSolset('sol000').getSoltab('tec000')
     t_soltab_phase = a.getSolset('sol000').getSoltab('phase000')
+    t_soltab_tec = a.getSolset('sol000').getSoltab('tec000')
+
     t_source = a.getSolset('sol000').getSou().items()
     t_antenna = a.getSolset('sol000').getAnt().items()
 
