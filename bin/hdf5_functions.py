@@ -255,7 +255,8 @@ def combine_h5s(phase_h5='', amplitude_h5='', tec_h5='', loop3_dir=''):
     #t_antenna = t.getSolset('sol000').getAnt().items()
 
     # reorder axes
-    desired_axesNames = ['time', 'freq', 'ant', 'pol']  # NOTE no 'dir' axis
+    desired_axesNames = ['time', 'freq', 'ant', 'pol'] # NOTE no 'dir' axis
+    desired_tec_axesNames = ['time', 'freq', 'ant']  # NOTE no 'dir' and 'pol' axis
     p_val_reordered = reorderAxes(p_soltab.val, p_soltab.getAxesNames(),
                                   desired_axesNames)
     p_weight_reordered = reorderAxes(p_soltab.weight, p_soltab.getAxesNames(),
@@ -269,17 +270,17 @@ def combine_h5s(phase_h5='', amplitude_h5='', tec_h5='', loop3_dir=''):
 
     t_phase_val_reordered = reorderAxes(t_soltab_phase.val,
                                         t_soltab_phase.getAxesNames(),
-                                        desired_axesNames)
+                                        desired_tec_axesNames)
     t_phase_weight_reordered = reorderAxes(t_soltab_phase.weight,
                                            t_soltab_phase.getAxesNames(),
-                                           desired_axesNames)
+                                           desired_tec_axesNames)
 
     t_tec_val_reordered = reorderAxes(t_soltab_tec.val,
                                         t_soltab_tec.getAxesNames(),
-                                        desired_axesNames)
+                                        desired_tec_axesNames)
     t_tec_weight_reordered = reorderAxes(t_soltab_phase.weight,
                                            t_soltab_tec.getAxesNames(),
-                                           desired_axesNames)
+                                           desired_tec_axesNames)
 
     # make new solution tables in the new h5parm
     new_h5 = phase_h5[:-3] + '_P_A.h5'  # lazy method
@@ -308,14 +309,14 @@ def combine_h5s(phase_h5='', amplitude_h5='', tec_h5='', loop3_dir=''):
                                   weights=a_weight_reordered)
 
     n_solset.makeSoltab('tec_phase000',
-                                  axesNames=['time', 'freq', 'ant'],
+                                  axesNames=desired_tec_axesNames,
                                   axesVals=[t_soltab_phase.time, t_soltab_phase.freq,
                                             t_soltab_phase.ant],
                                   vals=t_phase_val_reordered,
                                   weights=t_phase_weight_reordered)
 
     n_solset.makeSoltab('tec000',
-                                  axesNames=['time', 'freq', 'ant'],
+                                  axesNames=desired_tec_axesNames,
                                   axesVals=[t_soltab_tec.time, t_soltab_tec.freq,
                                             t_soltab_tec.ant],
                                   vals=t_tec_val_reordered,
