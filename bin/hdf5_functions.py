@@ -301,21 +301,21 @@ def combine_h5s(phase_h5='', amplitude_h5='', tec_h5='', loop3_dir=''):
                               vals=p_val_reordered,
                               weights=p_weight_reordered)
 
-    n_solset.makeSoltab('amplitude000',
+    n_solset.makeSoltab('amplitude',
                                   axesNames=desired_axesNames,
                                   axesVals=[a_soltab.time, a_soltab.freq,
                                             a_soltab.ant, a_soltab.pol],
                                   vals=a_val_reordered,
                                   weights=a_weight_reordered)
 
-    n_solset.makeSoltab('tec_phase000',
+    n_solset.makeSoltab('tec_phase',
                                   axesNames=desired_tec_axesNames,
                                   axesVals=[t_soltab_phase.time, t_soltab_phase.freq,
                                             t_soltab_phase.ant],
                                   vals=t_phase_val_reordered,
                                   weights=t_phase_weight_reordered)
 
-    n_solset.makeSoltab('tec000',
+    n_solset.makeSoltab('tec',
                                   axesNames=desired_tec_axesNames,
                                   axesVals=[t_soltab_tec.time, t_soltab_tec.freq,
                                             t_soltab_tec.ant],
@@ -1223,7 +1223,7 @@ def dir2phasesol(mtf, directions=[]):
                                              solset='sol002')
     logging.info('Putting TEC soltuions in sol002 in {}.'.format(new_h5parm))
     tec_solset = h.makeSolset('sol002')
-    tec_solset.makeSoltab('tec000',
+    tec_solset.makeSoltab('tec',
                           axesNames=['time', 'freq', 'ant', 'dir'],
                           axesVals=[time, freq, ant, dir_],
                           vals=vals,
@@ -1765,7 +1765,7 @@ def rejig_solsets(h5parm, is_tec=True, add_tec_to_phase=False):
     if is_tec:
         tec = h1.getSolset('sol002').getSoltab('tec000')
         tec_srt_val, tec_srt_wgt = sort_axes(tec, tec=True)
-        sol000.makeSoltab('tec000',
+        sol000.makeSoltab('tec',
                           axesNames=['time', 'freq', 'ant', 'dir'],
                           axesVals=[tec.time, tec.freq, tec.ant, dir_],
                           vals=tec_srt_val,
@@ -2434,7 +2434,7 @@ def update_list(initial_h5parm, incremental_h5parm, mtf, threshold=0.25,
         # write these best phase solutions to the combined_h5parm
         # creates sol002 in h which is the new h5parm
         solset = h.makeSolset(solset_tec)
-        solset.makeSoltab('tec000',
+        solset.makeSoltab('tec',
                           axesNames=['time', 'freq', 'ant', 'dir'],
                           axesVals=[new_times, freq, all_antennas,
                                     incremental_dir],
