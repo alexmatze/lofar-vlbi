@@ -1197,7 +1197,7 @@ def dir2phasesol(mtf, directions=[]):
         # amplitude solutions have a phase component too
         vals, weights, time, freq = build_soltab(soltab='phase',
                                                  working_data=working_data,
-                                                 solset='sol001')
+                                                 solset='sol000')
         amp_solset.makeSoltab('phase',
                               axesNames=['time', 'freq', 'ant', 'pol', 'dir'],
                               axesVals=[time, freq, ant, pol, dir_],
