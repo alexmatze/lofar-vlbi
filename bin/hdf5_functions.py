@@ -1185,7 +1185,7 @@ def dir2phasesol(mtf, directions=[]):
     try:  # bring across amplitude solutions if there are any
         vals, weights, time, freq = build_soltab(soltab='amplitude',
                                                  working_data=working_data,
-                                                 solset='sol001')
+                                                 solset='sol000')
         q = new_h5parm
         logging.info('Putting amplitude soltuions in sol001 in {}.'.format(q))
         amp_solset = h.makeSolset('sol001')
@@ -1218,7 +1218,6 @@ def dir2phasesol(mtf, directions=[]):
         pass
 
     # try:  # bring across tec solutions if there are any
-    print("------test-----")
     vals, weights, time, freq = build_soltab(soltab='tec000',
                                              working_data=working_data,
                                              solset='sol000')
@@ -1616,9 +1615,9 @@ def rejig_solsets(h5parm, is_tec=True, add_tec_to_phase=False):
     h2 = lh5.h5parm(new_h5parm, readonly=False)  # new h5parm
 
     # get sol000/phase000 and sol001/phase000,amplitude000 from the old h5parm
-    phase = h1.getSolset('sol000').getSoltab('phase000')
-    diagonal_amplitude = h1.getSolset('sol001').getSoltab('amplitude000')
-    diagonal_phase = h1.getSolset('sol001').getSoltab('phase000')
+    phase = h1.getSolset('sol000').getSoltab('tec_phase000')
+    diagonal_amplitude = h1.getSolset('sol000').getSoltab('amplitude000')
+    diagonal_phase = h1.getSolset('sol000').getSoltab('phase000')
 
     # use add_amplitude_and_phase_solutions to add sol000/phase000 to
     # sol001/phase000, amplitude000 (set the amplitude for the phase-only term
@@ -2122,10 +2121,10 @@ def update_list(initial_h5parm, incremental_h5parm, mtf, threshold=0.25,
     antenna_table.append(antenna_soltab)  # from dictionary to list
 
     if amplitudes_included:  # include amplitude solutions if they exist
-        initial_diagonal_A = f.getSolset('sol001').getSoltab('amplitude000')
-        initial_diagonal_P = f.getSolset('sol001').getSoltab('phase000')
+        initial_diagonal_A = f.getSolset('sol000').getSoltab('amplitude000')
+        initial_diagonal_P = f.getSolset('sol000').getSoltab('phase000')
 
-        sol001 = g.getSolset('sol001')
+        sol001 = g.getSolset('sol000')
         incremental_diagonal_A = sol001.getSoltab('amplitude000')
         incremental_diagonal_P = sol001.getSoltab('phase000')
 
@@ -2321,8 +2320,8 @@ def update_list(initial_h5parm, incremental_h5parm, mtf, threshold=0.25,
                           weights=P_weights)  # creates phase000
 
         # copy source and antenna tables into the new solution set
-        source_soltab = f.getSolset('sol001').getSou().items()  # dict to list
-        antenna_soltab = f.getSolset('sol001').getAnt().items()  # dict to list
+        source_soltab = f.getSolset('sol000').getSou().items()  # dict to list
+        antenna_soltab = f.getSolset('sol000').getAnt().items()  # dict to list
 
         source_table = solset.obj._f_get_child('source')
         source_table.append(source_soltab)
@@ -2471,8 +2470,8 @@ def update_list(initial_h5parm, incremental_h5parm, mtf, threshold=0.25,
     return rejigged_h5parm
 
 
-def plot_h5(h5parm, ncpu=4, phasesol='sol000', diagsol='sol001',
-            tecsol='sol002'):
+def plot_h5(h5parm, ncpu=4, phasesol='sol000', diagsol='sol000',
+            tecsol='sol000'):
     """Make losoto plots for a h5parm.
 
     Parameters
@@ -2511,7 +2510,7 @@ def plot_h5(h5parm, ncpu=4, phasesol='sol000', diagsol='sol001',
         f.write('plotFlag    = False\n')
         f.write('axesInPlot  = [time]\n')
         f.write('prefix      = {}_phase_\n'.format(prefix))
-        f.write('soltab      = {}/phase000\n'.format(phasesol))
+        f.write('soltab      = {}/tec_phase000\n'.format(phasesol))
         f.write('axisInTable = ant\n')
         f.write('operation   = PLOT\n')
         f.write('refAnt      = ST001\n')
