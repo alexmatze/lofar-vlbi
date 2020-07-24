@@ -739,7 +739,7 @@ def build_soltab(soltab, working_data, solset):
             values = np.expand_dims(tab.val, 0)
             weights = np.expand_dims(tab.weight, 0)
 
-        if soltab == 'tec000':  # tec will not have a polarisation axis
+        if soltab == 'tec000' or soltab == 'tec_phase000':  # tec will not have a polarisation axis
             reordered_values = reorderAxes(values, axes_names,
                                            ['time', 'freq', 'ant', 'dir'])
             reordered_weights = reorderAxes(weights, axes_names,
@@ -1627,7 +1627,7 @@ def rejig_solsets(h5parm, is_tec=True, add_tec_to_phase=False):
     time = make_new_times(phase.time, diagonal_phase.time)  # get new time axis
 
     # sort the soltab axes so they are the same before summing
-    ph_val_srt, ph_wgt_srt = sort_axes(phase)
+    ph_val_srt, ph_wgt_srt = sort_axes(phase,tec=True)
     diag_A_val_srt, diag_A_wgt_srt = sort_axes(diagonal_amplitude)
     diag_P_val_srt, diag_P_wgt_srt = sort_axes(diagonal_phase)
 
@@ -1784,11 +1784,11 @@ def rejig_solsets(h5parm, is_tec=True, add_tec_to_phase=False):
     if add_tec_to_phase:  # convert tec to phase and add it to the phase
         # tec has no frequency axis so project it along the phase axis
         tec = sol000.getSoltab('tec000')  # this is the tec soltab
-        phase = sol000.getSoltab('phase000')  # this is the phase soltab
+        phase = sol000.getSoltab('tec_phase000')  # this is the phase soltab
 
         # sort as time, frequency, antenna, polarisation [and direction]
         tec_sort_value, tec_sort_weight = sort_axes(tec, tec=True)
-        phase_sort_value, phase_sort_weight = sort_axes(phase, tec=False)
+        phase_sort_value, phase_sort_weight = sort_axes(phase, tec=True)
 
         # get my_phase and my_tec on the same time axis
         time_new = make_new_times(tec.time, phase.time)
