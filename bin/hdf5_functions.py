@@ -1218,7 +1218,7 @@ def dir2phasesol(mtf, directions=[]):
         pass
 
     # try:  # bring across tec solutions if there are any
-    vals, weights, time, freq = build_soltab(soltab='tec000',
+    vals, weights, time, freq = build_soltab(soltab='tec',
                                              working_data=working_data,
                                              solset='sol000')
     logging.info('Putting TEC soltuions in sol002 in {}.'.format(new_h5parm))
@@ -1398,7 +1398,7 @@ def apply_h5parm(h5parm, ms, col_out='DATA', solutions=['phase'], tidy=False,
         f.write('apply_solutions.tec_phase.correction = tec_phase\n\n')
         f.write('apply_solutions.amplitude.correction = amplitude000\n\n')
         f.write('apply_solutions.phase.correction     = phase000\n\n')
-        f.write('apply_solutions.tec.correction       = tec\n\n')
+        f.write('apply_solutions.tec.correction       = tec000\n\n')
 
     if execute:
         subprocess.check_output(['NDPPP', parset])
