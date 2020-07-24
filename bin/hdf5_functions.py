@@ -1398,7 +1398,7 @@ def apply_h5parm(h5parm, ms, col_out='DATA', solutions=['phase'], tidy=False,
         f.write('apply_solutions.tec_phase.correction = tec_phase\n\n')
         f.write('apply_solutions.amplitude.correction = amplitude000\n\n')
         f.write('apply_solutions.phase.correction     = phase000\n\n')
-        f.write('apply_solutions.tec.correction       = tec000\n\n')
+        f.write('apply_solutions.tec.correction       = tec\n\n')
 
     if execute:
         subprocess.check_output(['NDPPP', parset])
@@ -2334,7 +2334,7 @@ def update_list(initial_h5parm, incremental_h5parm, mtf, threshold=0.25,
         # implemented into loop 3 soon
 
         # assign all the information to variables
-        solset_tec, soltab_tec = 'sol002', 'tec000'
+        solset_tec, soltab_tec = 'sol000', 'tec000'
 
         initial_tec = f.getSolset(solset_tec).getSoltab(soltab_tec)
         try:  # may not contain a direction dimension
