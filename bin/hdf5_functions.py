@@ -1784,7 +1784,7 @@ def rejig_solsets(h5parm, is_tec=True, add_tec_to_phase=False):
     if add_tec_to_phase:  # convert tec to phase and add it to the phase
         # tec has no frequency axis so project it along the phase axis
         tec = sol000.getSoltab('tec000')  # this is the tec soltab
-        phase = sol000.getSoltab('tec_phase000')  # this is the phase soltab
+        phase = sol000.getSoltab('phase000')  # this is the phase soltab
 
         # sort as time, frequency, antenna, polarisation [and direction]
         tec_sort_value, tec_sort_weight = sort_axes(tec, tec=True)
